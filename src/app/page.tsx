@@ -68,7 +68,7 @@ export default function Home() {
             {/* Left — Copy */}
             <div>
               <p className="text-primary font-semibold text-sm uppercase tracking-widest mb-4 font-[family-name:var(--font-display)]">
-                Taught by a practitioner
+                Skills that pay the bills
               </p>
               <h1 className="text-5xl md:text-6xl lg:text-[4.25rem] font-bold text-charcoal leading-[1.08] mb-6 font-[family-name:var(--font-display)]">
                 Ignite Your Skills.

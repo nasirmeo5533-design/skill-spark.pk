@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import {
   ChevronRight,
   Clock,
@@ -90,9 +91,15 @@ export default async function CourseDetailPage({
           {/* LEFT Column */}
           <div className="lg:col-span-2 space-y-12">
             {/* Video/Image Preview */}
-            <div className="aspect-video bg-gradient-to-br from-primary/20 to-secondary/20 rounded-xl flex items-center justify-center">
-              {/* TODO: replace placeholder image */}
-              <span className="text-6xl">🎬</span>
+            <div className="relative aspect-video rounded-xl overflow-hidden">
+              <Image
+                src={course.image}
+                alt={course.title}
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 66vw"
+                priority
+              />
             </div>
 
             {/* Full Description */}
@@ -178,9 +185,9 @@ export default async function CourseDetailPage({
                 Your Instructor
               </h2>
               <div className="flex items-start gap-4">
-                {/* TODO: replace placeholder image */}
-                <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
-                  <span className="text-2xl">👨‍💻</span>
+                {/* Instructor Photo */}
+                <div className="w-20 h-20 bg-gradient-to-br from-primary to-amber-500 rounded-full flex items-center justify-center flex-shrink-0">
+                  <span className="text-2xl font-bold text-white">AN</span>
                 </div>
                 <div>
                   <h3 className="text-lg font-bold text-charcoal">

@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { ChevronRight, Clock, Tag, User, ArrowLeft, ArrowRight } from "lucide-react";
 import { blogPosts, getBlogPostBySlug } from "@/data/blog";
 import { getCourseBySlug } from "@/data/courses";
@@ -102,6 +103,18 @@ export default async function BlogPostPage({
           <ChevronRight className="h-4 w-4" />
           <span className="text-charcoal line-clamp-1">{post.title}</span>
         </nav>
+
+        {/* Hero Image */}
+        <div className="relative h-64 md:h-96 rounded-xl overflow-hidden mb-8">
+          <Image
+            src={post.image}
+            alt={post.title}
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, 80vw"
+            priority
+          />
+        </div>
 
         {/* Article Header */}
         <header className="mb-8">

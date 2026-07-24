@@ -1,14 +1,24 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Clock, BarChart } from "lucide-react";
 import { Course } from "@/data/courses";
 
 export default function CourseCard({ course }: { course: Course }) {
   return (
-    <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-      {/* Thumbnail Placeholder */}
-      <div className="h-48 bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
-        {/* TODO: replace placeholder image */}
-        <span className="text-4xl">📚</span>
+    <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300">
+      {/* Thumbnail with Image */}
+      <div className="relative aspect-video overflow-hidden group">
+        <Image
+          src={course.image}
+          alt={course.title}
+          fill
+          className="object-cover group-hover:scale-105 transition-transform duration-300"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        />
+        {/* Icon Badge */}
+        <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm rounded-full w-10 h-10 flex items-center justify-center text-xl shadow-md">
+          {course.icon}
+        </div>
       </div>
 
       <div className="p-6">

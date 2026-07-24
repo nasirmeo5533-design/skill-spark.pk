@@ -6,6 +6,7 @@ export interface BlogPost {
   readTime: string;
   date: string;
   targetKeyword: string;
+  image: string;
   content: string;
   relatedCourseSlug: string;
 }
@@ -20,6 +21,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "8 min read",
     date: "January 15, 2026",
     targetKeyword: "freelancing in Pakistan with AI skills",
+    image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&h=500&fit=crop",
     relatedCourseSlug: "freelancing-client-acquisition",
     content: `
 ## Why AI Skills Are the Future of Freelancing in Pakistan
@@ -79,6 +81,7 @@ Ready to start? Check out our [Freelancing & Client Acquisition course](/courses
     readTime: "10 min read",
     date: "January 20, 2026",
     targetKeyword: "Meta ads Pakistan low budget",
+    image: "https://images.unsplash.com/photo-1553729459-uj8q001720b?w=800&h=500&fit=crop",
     relatedCourseSlug: "meta-ads-mastery",
     content: `
 ## The Challenge: Maximum Results on Minimum Budget
@@ -171,6 +174,7 @@ The course includes real case studies, hands-on exercises, and a step-by-step fr
     readTime: "9 min read",
     date: "January 25, 2026",
     targetKeyword: "Shopify Pakistan ecommerce",
+    image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=500&fit=crop",
     relatedCourseSlug: "shopify-store-setup",
     content: `
 ## The Platform Decision Every Pakistani E-commerce Brand Faces
@@ -285,6 +289,7 @@ Want to learn how to set up a professional Shopify store? Check out our [Shopify
     readTime: "7 min read",
     date: "February 1, 2026",
     targetKeyword: "prompt engineering for beginners",
+    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=500&fit=crop",
     relatedCourseSlug: "prompt-engineering-masterclass",
     content: `
 ## Why Prompt Engineering Matters
@@ -379,6 +384,7 @@ The course includes hands-on exercises, a prompt library, and strategies for dif
     readTime: "6 min read",
     date: "February 5, 2026",
     targetKeyword: "AI automation tools freelancers Pakistan",
+    image: "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800&h=500&fit=crop",
     relatedCourseSlug: "ai-automation-agents",
     content: `
 ## Why AI Automation Tools Matter for Freelancers

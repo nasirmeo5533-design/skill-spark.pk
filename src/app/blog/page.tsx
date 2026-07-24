@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Clock, Tag } from "lucide-react";
 import { blogPosts } from "@/data/blog";
 
@@ -26,12 +27,16 @@ export default function BlogPage() {
           {blogPosts.map((post) => (
             <article
               key={post.slug}
-              className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow"
+              className="group bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow"
             >
-              {/* Thumbnail Placeholder */}
-              <div className="h-48 bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
-                {/* TODO: replace placeholder image */}
-                <span className="text-4xl">📝</span>
+              <div className="relative h-48 overflow-hidden">
+                <Image
+                  src={post.image}
+                  alt={post.title}
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-300"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                />
               </div>
 
               <div className="p-6">

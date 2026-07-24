@@ -13,6 +13,8 @@ export interface Course {
   curriculum: { moduleTitle: string; lessons: string[] }[];
   audience: string[];
   instructor: string;
+  image: string;
+  icon: string;
 }
 
 export const courses: Course[] = [
@@ -27,6 +29,8 @@ export const courses: Course[] = [
     level: "All Levels",
     shortDescription:
       "Master ChatGPT, Gemini & Claude for real business applications and content generation.",
+    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=500&fit=crop",
+    icon: "🤖",
     fullDescription:
       "Unlock the full potential of generative AI tools like ChatGPT, Gemini, and Claude. This course takes you from basics to advanced workflows, teaching you how to use AI for content creation, business automation, and problem-solving. You'll learn prompt engineering, content generation workflows, and how to integrate AI into your daily business operations. Unlike theoretical courses, every lesson is built around real-world use cases from e-commerce and digital marketing — skills you can apply immediately to earn online or boost your career.",
     learningOutcomes: [
@@ -99,6 +103,8 @@ export const courses: Course[] = [
     level: "Beginner",
     shortDescription:
       "Build automated workflows and AI agents without writing a single line of code.",
+    image: "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800&h=500&fit=crop",
+    icon: "⚡",
     fullDescription:
       "Learn to build powerful automation workflows and AI agents using no-code tools. This course is designed for entrepreneurs, marketers, and freelancers who want to automate repetitive tasks, create intelligent chatbots, and build AI-powered systems — all without programming knowledge. You'll work with real business use cases from e-commerce brands, learning how to set up lead generation bots, customer support agents, and marketing automation flows. Every workflow you build in this course is something you can deploy for clients or your own business immediately.",
     learningOutcomes: [
@@ -171,6 +177,8 @@ export const courses: Course[] = [
     level: "All Levels",
     shortDescription:
       "Write prompts that consistently produce accurate, business-ready AI outputs.",
+    image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=500&fit=crop",
+    icon: "✍️",
     fullDescription:
       "Prompt engineering is the most valuable skill in the AI era. This masterclass teaches you how to communicate effectively with AI models to get precise, useful outputs every time. You'll learn frameworks for writing prompts across different use cases — from content creation and code generation to data analysis and creative tasks. The course covers advanced techniques like chain-of-thought prompting, few-shot learning, and system prompt design. With hands-on exercises based on real business scenarios, you'll develop the intuition to craft prompts that deliver results.",
     learningOutcomes: [
@@ -235,6 +243,8 @@ export const courses: Course[] = [
     level: "Intermediate",
     shortDescription:
       "Master Facebook & Instagram ads with real case studies — including 30 sales on a PKR 1,000 budget.",
+    image: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&h=500&fit=crop",
+    icon: "📈",
     fullDescription:
       "Learn to create, manage, and optimize Meta Ads campaigns that actually convert. This course is built around real results — including a case study where we generated 30 qualified sales for an e-commerce brand on just PKR 1,000 ad spend. You'll master campaign structure, audience research, creative testing, and budget optimization. Unlike generic courses, every strategy is tested on live campaigns for Pakistani e-commerce brands, particularly in the perfume and beauty D2C space. By the end, you'll have the skills to run profitable ad campaigns for clients or your own business.",
     learningOutcomes: [
@@ -315,6 +325,8 @@ export const courses: Course[] = [
     level: "Beginner",
     shortDescription:
       "Build and optimize a Shopify store from scratch for D2C brands with proven CRO strategies.",
+    image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=500&fit=crop",
+    icon: "🛒",
     fullDescription:
       "Learn to build professional Shopify stores that convert visitors into customers. This course covers everything from initial setup to advanced conversion rate optimization (CRO). You'll learn how to choose the right theme, set up product pages that sell, configure payment gateways for Pakistani customers, and optimize your store for maximum conversions. Based on real experience setting up and optimizing stores for perfume and beauty D2C brands, every strategy in this course is proven to work in the Pakistani e-commerce market.",
     learningOutcomes: [
@@ -379,6 +391,8 @@ export const courses: Course[] = [
     level: "All Levels",
     shortDescription:
       "Use AI tools to produce marketing content, captions, and ad creatives at scale.",
+    image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&h=500&fit=crop",
+    icon: "✨",
     fullDescription:
       "Transform your content creation process with AI. This course teaches you how to use AI tools to produce high-quality marketing content, social media captions, ad creatives, and visual assets at scale. You'll learn workflows that let you create weeks of content in hours, maintain brand consistency, and optimize content for engagement. Based on real experience creating AI-assisted content for e-commerce brands, you'll learn practical techniques that save time while maintaining quality.",
     learningOutcomes: [
@@ -435,6 +449,8 @@ export const courses: Course[] = [
     level: "Beginner",
     shortDescription:
       "Master SEO, social media, paid ads, and strategy fundamentals in one comprehensive bootcamp.",
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=500&fit=crop",
+    icon: "🎯",
     fullDescription:
       "This comprehensive bootcamp covers all essential digital marketing skills you need to succeed online. From SEO and social media marketing to paid advertising and strategic planning, you'll learn the complete digital marketing stack. The course is designed for beginners who want to build a solid foundation, as well as intermediate marketers looking to fill gaps in their knowledge. Every module includes practical exercises based on real Pakistani market scenarios, ensuring you can apply what you learn immediately.",
     learningOutcomes: [
@@ -507,6 +523,8 @@ export const courses: Course[] = [
     level: "Intermediate",
     shortDescription:
       "Real case-study-driven course on scaling perfume and beauty D2C brands online.",
+    image: "https://images.unsplash.com/photo-1556742111-a301076d9d18?w=800&h=500&fit=crop",
+    icon: "🚀",
     fullDescription:
       "Learn to scale e-commerce and D2C brands using proven strategies from the perfume and beauty industry. This course is built entirely around real case studies and results from working with Pakistani D2C brands. You'll learn customer acquisition strategies, retention tactics, and growth frameworks that have been tested in live campaigns. From setting up your first ad campaign to building a scalable marketing machine, every lesson is grounded in actual results — not theory.",
     learningOutcomes: [
@@ -579,6 +597,8 @@ export const courses: Course[] = [
     level: "All Levels",
     shortDescription:
       "Learn to package and sell your AI and marketing skills as freelance services and land clients.",
+    image: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=800&h=500&fit=crop",
+    icon: "💼",
     fullDescription:
       "Turn your AI and marketing skills into a thriving freelance business. This course teaches you how to package your services, find clients, price your work, and build a sustainable freelancing career. You'll learn proven client acquisition strategies, proposal writing techniques, and how to position yourself as an expert in the growing AI services market. Based on real experience freelancing in Pakistan's AI and digital marketing space, you'll get actionable advice that works in the local market.",
     learningOutcomes: [
@@ -643,6 +663,8 @@ export const courses: Course[] = [
     level: "Intermediate",
     shortDescription:
       "Build intelligent chatbots and virtual assistants for customer support and lead generation.",
+    image: "https://images.unsplash.com/photo-1531746790095-e5995f3bb1d6?w=800&h=500&fit=crop",
+    icon: "💬",
     fullDescription:
       "Learn to build AI-powered chatbots and virtual assistants that handle customer support, generate leads, and automate business communications. This course covers both no-code and low-code approaches, teaching you how to design conversational flows, integrate with business systems, and deploy chatbots that actually work. You'll build real chatbots for e-commerce scenarios, learning how to handle common customer queries, qualify leads, and even process orders through conversational interfaces.",
     learningOutcomes: [

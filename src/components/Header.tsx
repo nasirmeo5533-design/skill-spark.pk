@@ -18,16 +18,12 @@ export default function Header() {
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
-            <svg
-              className="h-8 w-8 text-primary"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-            >
-              <path d="M13 10V3L4 14h7v7l9-11h-7z" />
+            <svg viewBox="0 0 24 24" fill="none" className="h-8 w-8">
+              <path d="M13 10V3L4 14h7v7l9-11h-7z" fill="currentColor" className="text-primary" />
             </svg>
             <span className="text-xl font-bold">
-              <span className="text-charcoal">Skill</span>
-              <span className="text-primary">Spark</span>
+              <span style={{ color: '#1C1C1E' }}>Skill</span>
+              <span className="bg-gradient-to-r from-primary to-primary-dark bg-clip-text text-transparent">Spark</span>
             </span>
           </Link>
 
@@ -35,7 +31,7 @@ export default function Header() {
           <nav className="hidden md:flex items-center gap-8">
             <Link
               href="/"
-              className="text-charcoal hover:text-primary transition-colors"
+              className="relative text-charcoal hover:text-primary transition-colors after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all hover:after:w-full"
             >
               Home
             </Link>
@@ -44,7 +40,7 @@ export default function Header() {
             <div className="relative">
               <button
                 onClick={() => setIsCoursesOpen(!isCoursesOpen)}
-                className="flex items-center gap-1 text-charcoal hover:text-primary transition-colors"
+                className="relative flex items-center gap-1 text-charcoal hover:text-primary transition-colors after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all hover:after:w-full"
               >
                 Courses
                 <ChevronDown className="h-4 w-4" />
@@ -75,25 +71,25 @@ export default function Header() {
 
             <Link
               href="/about"
-              className="text-charcoal hover:text-primary transition-colors"
+              className="relative text-charcoal hover:text-primary transition-colors after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all hover:after:w-full"
             >
               About
             </Link>
             <Link
               href="/blog"
-              className="text-charcoal hover:text-primary transition-colors"
+              className="relative text-charcoal hover:text-primary transition-colors after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all hover:after:w-full"
             >
               Blog
             </Link>
             <Link
               href="/success-stories"
-              className="text-charcoal hover:text-primary transition-colors"
+              className="relative text-charcoal hover:text-primary transition-colors after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all hover:after:w-full"
             >
               Success Stories
             </Link>
             <Link
               href="/contact"
-              className="text-charcoal hover:text-primary transition-colors"
+              className="relative text-charcoal hover:text-primary transition-colors after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all hover:after:w-full"
             >
               Contact
             </Link>
@@ -103,7 +99,7 @@ export default function Header() {
           <div className="hidden md:flex items-center gap-4">
             <Link
               href="/courses"
-              className="bg-primary text-white px-6 py-2 rounded-full font-medium hover:bg-primary-dark transition-colors"
+              className="bg-gradient-to-r from-primary to-primary-dark text-white px-6 py-2 rounded-full font-medium shadow-lg shadow-primary/30 hover:shadow-xl hover:shadow-primary/40 transition-all"
             >
               Enroll Now
             </Link>
@@ -124,8 +120,7 @@ export default function Header() {
       </div>
 
       {/* Mobile Menu */}
-      {isMenuOpen && (
-        <div className="md:hidden bg-white border-t border-gray-100">
+      <div className={`md:hidden bg-white border-t border-gray-100 transition-all duration-300 ${isMenuOpen ? 'opacity-100 max-h-[800px]' : 'opacity-0 max-h-0 overflow-hidden'}`}>
           <div className="px-4 py-4 space-y-4">
             <Link
               href="/"
@@ -181,14 +176,13 @@ export default function Header() {
             </Link>
             <Link
               href="/courses"
-              className="block bg-primary text-white px-6 py-2 rounded-full font-medium text-center hover:bg-primary-dark transition-colors"
+              className="block bg-gradient-to-r from-primary to-primary-dark text-white px-6 py-2 rounded-full font-medium text-center shadow-lg shadow-primary/30 hover:shadow-xl hover:shadow-primary/40 transition-all"
               onClick={() => setIsMenuOpen(false)}
             >
               Enroll Now
             </Link>
           </div>
-        </div>
-      )}
+      </div>
     </header>
   );
 }

@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import Image from "next/image";
 import { Menu, X, ChevronDown, MessageCircle } from "lucide-react";
 import { siteConfig } from "@/lib/config";
 import { courses } from "@/data/courses";
@@ -18,16 +17,10 @@ export default function Header() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2.5">
-            <div className="relative w-9 h-9 rounded-full overflow-hidden border-2 border-warm-gray/60 flex-shrink-0">
-              <Image
-                src="/founder.png"
-                alt="Abeer Nasir"
-                fill
-                className="object-cover"
-                sizes="36px"
-              />
-            </div>
+          <Link href="/" className="flex items-center gap-2">
+            <svg viewBox="0 0 24 24" fill="none" className="h-8 w-8">
+              <path d="M13 10V3L4 14h7v7l9-11h-7z" fill="currentColor" className="text-primary" />
+            </svg>
             <span className="text-xl font-bold font-[family-name:var(--font-display)]">
               <span className="text-charcoal">Skill</span>
               <span className="text-primary">Spark</span>

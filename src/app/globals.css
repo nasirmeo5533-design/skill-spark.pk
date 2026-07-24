@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-primary: #FF7A1A;
+  --color-primary-dark: #E56A0F;
+  --color-secondary: #FFC93C;
+  --color-secondary-dark: #E6B535;
+  --color-charcoal: #1C1C1E;
+  --color-light-gray: #F8F8F6;
+  --color-success: #22C55E;
+  --color-background: #ffffff;
+  --color-foreground: #1C1C1E;
+  --font-sans: var(--font-poppins);
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+/* WhatsApp button pulse animation */
+@keyframes pulse-bounce {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.animate-pulse-bounce {
+  animation: pulse-bounce 2s infinite;
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}

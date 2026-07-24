@@ -10,7 +10,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Contact Column */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Contact</h3>
+            <h3 className="text-lg font-semibold mb-4 font-[family-name:var(--font-display)]">Contact</h3>
             <ul className="space-y-3">
               <li>
                 <a
@@ -41,7 +41,7 @@ export default function Footer() {
 
           {/* Company Column */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Company</h3>
+            <h3 className="text-lg font-semibold mb-4 font-[family-name:var(--font-display)]">Company</h3>
             <ul className="space-y-3">
               {siteConfig.footerLinks.company.map((link) => (
                 <li key={link.href}>
@@ -58,7 +58,7 @@ export default function Footer() {
 
           {/* Courses Column */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Courses</h3>
+            <h3 className="text-lg font-semibold mb-4 font-[family-name:var(--font-display)]">Courses</h3>
             <ul className="space-y-3">
               {courses.map((course) => (
                 <li key={course.slug}>
@@ -75,7 +75,7 @@ export default function Footer() {
 
           {/* Legal Column */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Legal</h3>
+            <h3 className="text-lg font-semibold mb-4 font-[family-name:var(--font-display)]">Legal</h3>
             <ul className="space-y-3">
               {siteConfig.footerLinks.legal.map((link) => (
                 <li key={link.href}>

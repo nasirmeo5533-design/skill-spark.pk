@@ -38,9 +38,11 @@ export const siteConfig = {
   // Brand Colors (for reference, actual values in globals.css)
   colors: {
     primary: "#FF7A1A",
+    primaryDark: "#E56A0F",
     secondary: "#FFC93C",
     charcoal: "#1C1C1E",
-    lightGray: "#F8F8F6",
+    cream: "#FAF8F5",
+    warmGray: "#E8E4DF",
     success: "#22C55E",
   },
 

@@ -13,7 +13,7 @@ export default function Header() {
   const categories = [...new Set(courses.map((c) => c.category))];
 
   return (
-    <header className="sticky top-0 z-50 bg-white shadow-sm">
+    <header className="sticky top-0 z-50 bg-cream/80 backdrop-blur-lg border-b border-warm-gray/40">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
@@ -21,9 +21,9 @@ export default function Header() {
             <svg viewBox="0 0 24 24" fill="none" className="h-8 w-8">
               <path d="M13 10V3L4 14h7v7l9-11h-7z" fill="currentColor" className="text-primary" />
             </svg>
-            <span className="text-xl font-bold">
-              <span style={{ color: '#1C1C1E' }}>Skill</span>
-              <span className="bg-gradient-to-r from-primary to-primary-dark bg-clip-text text-transparent">Spark</span>
+            <span className="text-xl font-bold font-[family-name:var(--font-display)]">
+              <span className="text-charcoal">Skill</span>
+              <span className="text-primary">Spark</span>
             </span>
           </Link>
 
@@ -47,7 +47,7 @@ export default function Header() {
               </button>
 
               {isCoursesOpen && (
-                <div className="absolute top-full left-0 mt-2 w-64 bg-white rounded-lg shadow-lg border border-gray-100 py-2">
+                <div className="absolute top-full left-0 mt-2 w-64 bg-cream rounded-lg shadow-lg border border-warm-gray/50 py-2">
                   <Link
                     href="/courses"
                     className="block px-4 py-2 text-charcoal hover:bg-light-gray hover:text-primary transition-colors font-medium"
@@ -99,7 +99,7 @@ export default function Header() {
           <div className="hidden md:flex items-center gap-4">
             <Link
               href="/courses"
-              className="bg-gradient-to-r from-primary to-primary-dark text-white px-6 py-2 rounded-full font-medium shadow-lg shadow-primary/30 hover:shadow-xl hover:shadow-primary/40 transition-all"
+              className="bg-primary text-white px-6 py-2 rounded-full font-semibold shadow-sm shadow-primary/20 hover:bg-primary-dark transition-colors font-[family-name:var(--font-display)] text-sm"
             >
               Enroll Now
             </Link>
@@ -120,7 +120,7 @@ export default function Header() {
       </div>
 
       {/* Mobile Menu */}
-      <div className={`md:hidden bg-white border-t border-gray-100 transition-all duration-300 ${isMenuOpen ? 'opacity-100 max-h-[800px]' : 'opacity-0 max-h-0 overflow-hidden'}`}>
+      <div className={`md:hidden bg-cream border-t border-warm-gray/40 transition-all duration-300 ${isMenuOpen ? 'opacity-100 max-h-[800px]' : 'opacity-0 max-h-0 overflow-hidden'}`}>
           <div className="px-4 py-4 space-y-4">
             <Link
               href="/"
@@ -176,7 +176,7 @@ export default function Header() {
             </Link>
             <Link
               href="/courses"
-              className="block bg-gradient-to-r from-primary to-primary-dark text-white px-6 py-2 rounded-full font-medium text-center shadow-lg shadow-primary/30 hover:shadow-xl hover:shadow-primary/40 transition-all"
+              className="block bg-primary text-white px-6 py-2 rounded-full font-semibold text-center shadow-sm shadow-primary/20 hover:bg-primary-dark transition-colors font-[family-name:var(--font-display)] text-sm"
               onClick={() => setIsMenuOpen(false)}
             >
               Enroll Now

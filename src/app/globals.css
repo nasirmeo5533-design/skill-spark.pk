@@ -6,17 +6,25 @@
   --color-secondary: #FFC93C;
   --color-secondary-dark: #E6B535;
   --color-charcoal: #1C1C1E;
-  --color-light-gray: #F8F8F6;
+  --color-cream: #FAF8F5;
+  --color-light-gray: #FAF8F5;
+  --color-warm-gray: #E8E4DF;
+  --color-surface: #FFFFFF;
   --color-success: #22C55E;
-  --color-background: #ffffff;
+  --color-background: #FAF8F5;
   --color-foreground: #1C1C1E;
-  --font-sans: var(--font-poppins);
+  --font-display: var(--font-space-grotesk);
+  --font-body: var(--font-dm-sans);
 }
 
 body {
   background: var(--color-background);
   color: var(--color-foreground);
-  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  font-family: var(--font-body), "Helvetica Neue", Arial, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display), "Helvetica Neue", Arial, sans-serif;
 }
 
 /* WhatsApp button pulse animation */
@@ -33,7 +41,40 @@ body {
   animation: pulse-bounce 2s infinite;
 }
 
+/* Hero result card slide-in */
+@keyframes card-slide-in {
+  0% {
+    opacity: 0;
+    transform: translateX(40px) rotate(2deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) rotate(0deg);
+  }
+}
+
+.animate-card-slide-in {
+  animation: card-slide-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both;
+}
+
 /* Smooth scroll */
 html {
   scroll-behavior: smooth;
+}
+
+/* Staggered course grid */
+.course-grid-stagger > *:nth-child(2) {
+  margin-top: 2rem;
+}
+.course-grid-stagger > *:nth-child(5) {
+  margin-top: 2rem;
+}
+
+@media (min-width: 768px) {
+  .course-grid-stagger > *:nth-child(2) {
+    margin-top: 3rem;
+  }
+  .course-grid-stagger > *:nth-child(5) {
+    margin-top: 3rem;
+  }
 }

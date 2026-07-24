@@ -169,15 +169,19 @@ export default async function BlogPostPage({
 
             {/* Mid-article CTA */}
             {relatedCourse && (
-              <div className="my-8 bg-primary/10 p-6 rounded-xl">
-                <p className="text-charcoal font-medium mb-3">
-                  Want to master {relatedCourse.category}?
+              <div className="my-10 bg-charcoal p-6 rounded-xl">
+                <p className="text-white/70 text-sm mb-2">Learn this fully in our</p>
+                <p className="text-white font-bold text-lg mb-1 font-[family-name:var(--font-display)]">
+                  {relatedCourse.title}
+                </p>
+                <p className="text-primary font-semibold text-sm mb-4">
+                  Only Rs. {relatedCourse.price.toLocaleString()} — one-time
                 </p>
                 <Link
                   href={`/courses/${relatedCourse.slug}`}
-                  className="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-full font-semibold hover:bg-primary-dark transition-colors"
+                  className="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-full font-semibold hover:bg-primary-dark transition-colors font-[family-name:var(--font-display)] text-sm"
                 >
-                  Check out {relatedCourse.title}
+                  View Course
                   <ArrowRight className="h-4 w-4" />
                 </Link>
               </div>
@@ -186,9 +190,14 @@ export default async function BlogPostPage({
             {/* Author Box */}
             <div className="mt-12 bg-light-gray p-6 rounded-xl">
               <div className="flex items-start gap-4">
-                {/* TODO: replace placeholder image */}
-                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
-                  <User className="h-8 w-8 text-primary" />
+                <div className="w-16 h-16 rounded-full overflow-hidden flex-shrink-0 relative">
+                  <Image
+                    src="/founder.png"
+                    alt={siteConfig.founder.name}
+                    fill
+                    className="object-cover"
+                    sizes="64px"
+                  />
                 </div>
                 <div>
                   <h3 className="font-semibold text-charcoal">
@@ -206,15 +215,19 @@ export default async function BlogPostPage({
 
             {/* End-of-article CTA */}
             {relatedCourse && (
-              <div className="mt-8 bg-gradient-to-r from-primary to-secondary p-6 rounded-xl text-white text-center">
-                <p className="font-semibold mb-3">
-                  Ready to take your skills to the next level?
+              <div className="mt-8 bg-charcoal p-6 rounded-xl text-center">
+                <p className="text-white/70 text-sm mb-2">Master this topic with</p>
+                <p className="text-white font-bold text-xl mb-1 font-[family-name:var(--font-display)]">
+                  {relatedCourse.title}
+                </p>
+                <p className="text-primary font-semibold mb-4">
+                  Rs. {relatedCourse.price.toLocaleString()} — one-time, lifetime access
                 </p>
                 <Link
                   href={`/courses/${relatedCourse.slug}`}
-                  className="inline-flex items-center gap-2 bg-white text-primary px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors"
+                  className="inline-flex items-center gap-2 bg-white text-charcoal px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors font-[family-name:var(--font-display)] text-sm"
                 >
-                  Enroll in {relatedCourse.title}
+                  Enroll Now
                   <ArrowRight className="h-4 w-4" />
                 </Link>
               </div>

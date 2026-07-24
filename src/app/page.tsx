@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import {
   MessageCircle,
   BookOpen,
@@ -94,6 +95,31 @@ export default function Home() {
                   <MessageCircle className="h-5 w-5" />
                   Chat on WhatsApp
                 </a>
+              </div>
+
+              {/* Founder trust line */}
+              <div className="mt-8 flex items-center gap-4">
+                <div className="relative w-11 h-11 rounded-full overflow-hidden border-2 border-warm-gray/60 flex-shrink-0">
+                  <Image
+                    src="/founder.png"
+                    alt={siteConfig.founder.name}
+                    fill
+                    className="object-cover"
+                    sizes="44px"
+                  />
+                </div>
+                <div className="text-sm">
+                  <span className="text-charcoal font-medium">{siteConfig.founder.name}</span>
+                  <span className="text-gray-400"> &middot; </span>
+                  <a
+                    href={siteConfig.contact.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary hover:underline font-medium"
+                  >
+                    See credentials &rarr;
+                  </a>
+                </div>
               </div>
             </div>
 

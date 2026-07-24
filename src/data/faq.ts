@@ -54,4 +54,29 @@ export const faqs: FAQ[] = [
     answer:
       "While our courses are designed with the Pakistani market in mind, the skills taught are globally applicable. Students from any country can benefit from our AI, digital marketing, and e-commerce courses. All sessions are conducted in English/Urdu.",
   },
+  {
+    question: "Is my payment safe? How do I know this isn't a scam?",
+    answer:
+      "We understand the concern — there are many low-quality courses out there. SkillSpark is a legitimate platform founded by Abeer Nasir, whose work and credentials are publicly available on LinkedIn. You pay only after receiving payment details on WhatsApp, and you can verify our student testimonials on the Success Stories page. We also provide direct instructor access, so you're never dealing with a faceless company.",
+  },
+  {
+    question: "Can I share my course access with friends or family?",
+    answer:
+      "Course access is licensed to one individual only. Sharing login credentials or course materials with others violates our terms and undermines the value of the direct support you receive. If someone you know is interested, we're happy to offer them the same Rs. 5,000 one-time rate.",
+  },
+  {
+    question: "Will the course content be updated? Do I get access to new versions?",
+    answer:
+      "Yes — you get lifetime access, which includes all future updates to the course. As AI tools and marketing platforms evolve, the course content is updated to stay current. You won't need to pay again for new versions.",
+  },
+  {
+    question: "Do I need any prior experience or technical skills to take a course?",
+    answer:
+      "Most of our courses are designed for beginners. You don't need coding experience or a marketing background — just a willingness to learn and apply what you're taught. Each course clearly states its level (Beginner, Intermediate, or All Levels) so you can pick the right starting point.",
+  },
+  {
+    question: "How long do I have access to the course after enrolling?",
+    answer:
+      "Lifetime access — literally. Once you enroll, the course materials (recorded videos, resources, templates) are yours forever. There's no expiration date. You can revisit lessons anytime, even months or years later.",
+  },
 ];

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Award, Target, Users, TrendingUp, BookOpen, ExternalLink } from "lucide-react";
 import { siteConfig } from "@/lib/config";
 
@@ -22,9 +23,15 @@ export default function AboutPage() {
         {/* Founder Story */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
           <div>
-            {/* TODO: replace placeholder image */}
-            <div className="aspect-square bg-gradient-to-br from-primary/20 to-secondary/20 rounded-2xl flex items-center justify-center">
-              <span className="text-6xl">👨‍💻</span>
+            <div className="aspect-[4/5] bg-charcoal rounded-2xl overflow-hidden relative">
+              <Image
+                src="/founder.png"
+                alt={siteConfig.founder.name}
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                priority
+              />
             </div>
           </div>
           <div>

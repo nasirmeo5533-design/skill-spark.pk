@@ -41,3 +41,9 @@ yarn-error.log*
 next-env.d.ts
 
 .vercel
+
+# personal files (not for public repo)
+claude.md
+resume.md
+SkillSpark-OpenCode-Master-Prompt.md
+*.pdf

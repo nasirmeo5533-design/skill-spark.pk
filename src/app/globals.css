@@ -1,26 +1,26 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-primary: #0D9488;
-  --color-primary-dark: #0F766E;
-  --color-primary-light: #14B8A6;
-  --color-secondary: #2DD4BF;
-  --color-accent: #D97706;
-  --color-accent-light: #F59E0B;
-  --color-charcoal: #134E4A;
-  --color-cream: #F0FDFA;
-  --color-light-gray: #E8F1F4;
+  --color-primary: #FF7A1A;
+  --color-primary-dark: #E56A0F;
+  --color-primary-light: #FF9A4D;
+  --color-secondary: #FFC93C;
+  --color-accent: #FF5722;
+  --color-accent-light: #FF7043;
+  --color-charcoal: #1C1C1E;
+  --color-cream: #FAF8F5;
+  --color-light-gray: #F5F3F0;
   --color-warm-gray: #E8E4DF;
   --color-surface: #FFFFFF;
   --color-success: #22C55E;
   --color-destructive: #DC2626;
-  --color-background: #F0FDFA;
-  --color-foreground: #134E4A;
-  --color-muted: #E8F1F4;
-  --color-border: #5EEAD4;
-  --color-ring: #0D9488;
-  --color-glow: #0D948833;
-  --color-glow-strong: #0D948866;
+  --color-background: #FAF8F5;
+  --color-foreground: #1C1C1E;
+  --color-muted: #F5F3F0;
+  --color-border: #E8E4DF;
+  --color-ring: #FF7A1A;
+  --color-glow: #FF7A1A33;
+  --color-glow-strong: #FF7A1A66;
   --font-display: var(--font-nunito);
   --font-body: var(--font-dm-sans);
 }
@@ -41,7 +41,66 @@ html {
   scroll-behavior: smooth;
 }
 
-/* WhatsApp button pulse animation */
+/* ═══ BUTTON ANIMATIONS ═══ */
+
+/* Button pulse */
+@keyframes btn-pulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 4px 15px rgba(255, 122, 26, 0.3); }
+  50% { transform: scale(1.05); box-shadow: 0 8px 25px rgba(255, 122, 26, 0.5); }
+}
+.animate-btn-pulse {
+  animation: btn-pulse 2s ease-in-out infinite;
+}
+
+/* Button glow */
+@keyframes btn-glow {
+  0%, 100% { box-shadow: 0 0 5px rgba(255, 122, 26, 0.2), 0 4px 15px rgba(255, 122, 26, 0.3); }
+  50% { box-shadow: 0 0 20px rgba(255, 122, 26, 0.4), 0 8px 30px rgba(255, 122, 26, 0.5); }
+}
+.animate-btn-glow {
+  animation: btn-glow 2.5s ease-in-out infinite;
+}
+
+/* Button shimmer */
+@keyframes btn-shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+.animate-btn-shimmer {
+  background: linear-gradient(90deg, #FF7A1A 0%, #FFC93C 50%, #FF7A1A 100%);
+  background-size: 200% auto;
+  animation: btn-shimmer 3s linear infinite;
+}
+
+/* ═══ CARD ANIMATIONS ═══ */
+
+/* Card hover glow */
+@keyframes card-glow {
+  0%, 100% { box-shadow: 0 4px 20px rgba(255, 122, 26, 0.1); }
+  50% { box-shadow: 0 8px 40px rgba(255, 122, 26, 0.25); }
+}
+.animate-card-glow {
+  animation: card-glow 3s ease-in-out infinite;
+}
+
+/* Card float */
+@keyframes card-float {
+  0%, 100% { transform: translateY(0px) rotateX(0deg); }
+  50% { transform: translateY(-10px) rotateX(2deg); }
+}
+.animate-card-float {
+  animation: card-float 4s ease-in-out infinite;
+}
+
+/* Card shine sweep */
+@keyframes card-shine {
+  0% { left: -100%; }
+  100% { left: 200%; }
+}
+
+/* ═══ GENERAL ANIMATIONS ═══ */
+
+/* WhatsApp button pulse */
 @keyframes pulse-bounce {
   0%, 100% { transform: scale(1); }
   50% { transform: scale(1.1); }
@@ -122,9 +181,40 @@ html {
   animation: card-slide-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both;
 }
 
+/* Bounce in */
+@keyframes bounce-in {
+  0% { opacity: 0; transform: scale(0.3); }
+  50% { transform: scale(1.05); }
+  70% { transform: scale(0.9); }
+  100% { opacity: 1; transform: scale(1); }
+}
+.animate-bounce-in {
+  animation: bounce-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Pop in */
+@keyframes pop-in {
+  0% { opacity: 0; transform: scale(0) rotate(-10deg); }
+  70% { transform: scale(1.1) rotate(2deg); }
+  100% { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+.animate-pop-in {
+  animation: pop-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Wiggle */
+@keyframes wiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-3deg); }
+  75% { transform: rotate(3deg); }
+}
+.animate-wiggle {
+  animation: wiggle 0.5s ease-in-out;
+}
+
 /* Gradient text */
 .gradient-text {
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+  background: linear-gradient(135deg, #FF7A1A 0%, #FFC93C 50%, #FF5722 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -140,6 +230,25 @@ html {
 /* 3D perspective */
 .perspective-1000 {
   perspective: 1000px;
+}
+
+/* Card shine overlay */
+.card-shine {
+  position: relative;
+  overflow: hidden;
+}
+.card-shine::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: none;
+}
+.card-shine:hover::before {
+  animation: card-shine 0.6s ease forwards;
 }
 
 /* Staggered course grid */

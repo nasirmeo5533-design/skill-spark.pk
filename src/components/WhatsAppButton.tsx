@@ -7,9 +7,9 @@ export default function WhatsAppButton() {
     <>
       <style>{`
         @keyframes whatsapp-pulse {
-          0% { box-shadow: 0 0 0 0 rgba(13, 148, 136, 0.7); }
-          70% { box-shadow: 0 0 0 15px rgba(13, 148, 136, 0); }
-          100% { box-shadow: 0 0 0 0 rgba(13, 148, 136, 0); }
+          0% { box-shadow: 0 0 0 0 rgba(255, 122, 26, 0.7); }
+          70% { box-shadow: 0 0 0 15px rgba(255, 122, 26, 0); }
+          100% { box-shadow: 0 0 0 0 rgba(255, 122, 26, 0); }
         }
         .whatsapp-btn {
           animation: whatsapp-pulse 2s infinite;

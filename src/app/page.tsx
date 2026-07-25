@@ -2,7 +2,7 @@
 
 import { useRef, useEffect, useState, useMemo } from "react";
 import Link from "next/link";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Environment, Stars } from "@react-three/drei";
 import * as THREE from "three";
 import {
@@ -62,22 +62,32 @@ const testimonials = [
   },
 ];
 
-// 3D Robot Component
-function RobotModel({ position, scale = 1 }: { position: [number, number, number]; scale?: number }) {
+/* ═══ 3D Robot — walks through sections via scroll ═══ */
+function RobotModel({ scrollProgress }: { scrollProgress: number }) {
   const groupRef = useRef<THREE.Group>(null);
   const pupilLeftRef = useRef<THREE.Mesh>(null);
   const pupilRightRef = useRef<THREE.Mesh>(null);
   const antennaRef = useRef<THREE.Group>(null);
   const glowRef = useRef<THREE.Mesh>(null);
   const bodyRef = useRef<THREE.Mesh>(null);
+  const leftArmRef = useRef<THREE.Group>(null);
   const rightArmRef = useRef<THREE.Group>(null);
+  const leftLegRef = useRef<THREE.Group>(null);
+  const rightLegRef = useRef<THREE.Group>(null);
 
   useFrame(({ clock }) => {
     const t = clock.getElapsedTime();
 
+    // Walking positions — robot moves across screen as user scrolls
+    const walkX = THREE.MathUtils.lerp(-3, 3, scrollProgress);
+    const walkY = Math.sin(scrollProgress * Math.PI * 4) * 0.1; // bounce while walking
+    const walkRotY = Math.sin(scrollProgress * Math.PI * 2) * 0.3;
+
     if (groupRef.current) {
-      groupRef.current.position.y = position[1] + Math.sin(t * 1.2) * 0.15;
-      groupRef.current.rotation.y = Math.sin(t * 0.5) * 0.1;
+      groupRef.current.position.x = walkX;
+      groupRef.current.position.y = -0.5 + walkY + Math.sin(t * 1.5) * 0.05;
+      groupRef.current.position.z = 0;
+      groupRef.current.rotation.y = walkRotY;
     }
 
     // Blink
@@ -88,7 +98,7 @@ function RobotModel({ position, scale = 1 }: { position: [number, number, number
     }
 
     if (antennaRef.current) {
-      antennaRef.current.rotation.z = Math.sin(t * 2) * 0.1;
+      antennaRef.current.rotation.z = Math.sin(t * 2.5) * 0.15;
     }
 
     if (glowRef.current) {
@@ -98,26 +108,38 @@ function RobotModel({ position, scale = 1 }: { position: [number, number, number
 
     if (bodyRef.current) {
       const mat = bodyRef.current.material as THREE.MeshStandardMaterial;
-      mat.emissiveIntensity = 0.3 + Math.sin(t * 2) * 0.1;
+      mat.emissiveIntensity = 0.3 + Math.sin(t * 2) * 0.15;
     }
 
+    // Walking arm swing
+    const walkCycle = Math.sin(t * 6) * 0.4;
+    if (leftArmRef.current) {
+      leftArmRef.current.rotation.x = walkCycle;
+    }
     if (rightArmRef.current) {
-      rightArmRef.current.rotation.z = Math.sin(t * 4) * 0.3 - 0.5;
-      rightArmRef.current.rotation.x = Math.sin(t * 3) * 0.2;
+      rightArmRef.current.rotation.x = -walkCycle;
+    }
+
+    // Walking leg swing
+    if (leftLegRef.current) {
+      leftLegRef.current.rotation.x = -walkCycle * 0.5;
+    }
+    if (rightLegRef.current) {
+      rightLegRef.current.rotation.x = walkCycle * 0.5;
     }
   });
 
   return (
-    <group ref={groupRef} position={position} scale={scale}>
+    <group ref={groupRef} scale={0.9}>
       {/* Head */}
       <group position={[0, 0.45, 0]}>
         <mesh>
           <boxGeometry args={[0.5, 0.4, 0.4]} />
-          <meshStandardMaterial color="#14B8A6" metalness={0.7} roughness={0.2} />
+          <meshStandardMaterial color="#FF9A4D" metalness={0.7} roughness={0.2} />
         </mesh>
         <mesh position={[0, 0, 0.15]}>
           <boxGeometry args={[0.42, 0.32, 0.1]} />
-          <meshStandardMaterial color="#E8F1F4" metalness={0.3} roughness={0.6} />
+          <meshStandardMaterial color="#FAF8F5" metalness={0.3} roughness={0.6} />
         </mesh>
         {/* Eyes */}
         <mesh position={[-0.1, 0.02, 0.2]}>
@@ -126,7 +148,7 @@ function RobotModel({ position, scale = 1 }: { position: [number, number, number
         </mesh>
         <mesh ref={pupilLeftRef} position={[-0.1, 0.02, 0.28]}>
           <sphereGeometry args={[0.06, 16, 16]} />
-          <meshStandardMaterial color="#134E4A" emissive="#0D9488" emissiveIntensity={0.5} />
+          <meshStandardMaterial color="#1C1C1E" emissive="#FF7A1A" emissiveIntensity={0.6} />
         </mesh>
         <mesh position={[0.1, 0.02, 0.2]}>
           <sphereGeometry args={[0.12, 16, 16]} />
@@ -134,22 +156,22 @@ function RobotModel({ position, scale = 1 }: { position: [number, number, number
         </mesh>
         <mesh ref={pupilRightRef} position={[0.1, 0.02, 0.28]}>
           <sphereGeometry args={[0.06, 16, 16]} />
-          <meshStandardMaterial color="#134E4A" emissive="#0D9488" emissiveIntensity={0.5} />
+          <meshStandardMaterial color="#1C1C1E" emissive="#FF7A1A" emissiveIntensity={0.6} />
         </mesh>
         {/* Mouth */}
         <mesh position={[0, -0.08, 0.2]}>
           <torusGeometry args={[0.06, 0.015, 8, 16, Math.PI]} />
-          <meshStandardMaterial color="#0D9488" emissive="#0D9488" emissiveIntensity={0.3} />
+          <meshStandardMaterial color="#FF7A1A" emissive="#FF7A1A" emissiveIntensity={0.4} />
         </mesh>
         {/* Antenna */}
         <group ref={antennaRef} position={[0, 0.65, 0]}>
           <mesh>
             <cylinderGeometry args={[0.02, 0.02, 0.2, 8]} />
-            <meshStandardMaterial color="#5EEAD4" metalness={0.8} roughness={0.2} />
+            <meshStandardMaterial color="#FFC93C" metalness={0.8} roughness={0.2} />
           </mesh>
           <mesh ref={glowRef} position={[0, 0.15, 0]}>
             <sphereGeometry args={[0.06, 16, 16]} />
-            <meshStandardMaterial color="#2DD4BF" emissive="#0D9488" emissiveIntensity={1} toneMapped={false} />
+            <meshStandardMaterial color="#FFC93C" emissive="#FF7A1A" emissiveIntensity={1} toneMapped={false} />
           </mesh>
         </group>
       </group>
@@ -157,90 +179,97 @@ function RobotModel({ position, scale = 1 }: { position: [number, number, number
       {/* Body */}
       <mesh ref={bodyRef} position={[0, 0, 0]}>
         <boxGeometry args={[0.6, 0.7, 0.4]} />
-        <meshStandardMaterial color="#0D9488" metalness={0.6} roughness={0.3} emissive="#0D9488" emissiveIntensity={0.3} />
+        <meshStandardMaterial color="#FF7A1A" metalness={0.6} roughness={0.3} emissive="#FF7A1A" emissiveIntensity={0.3} />
       </mesh>
       <mesh position={[0, 0.05, 0.21]}>
         <boxGeometry args={[0.35, 0.3, 0.05]} />
-        <meshStandardMaterial color="#E8F1F4" metalness={0.4} roughness={0.5} />
+        <meshStandardMaterial color="#FAF8F5" metalness={0.4} roughness={0.5} />
       </mesh>
       <mesh position={[0, 0.05, 0.24]}>
         <circleGeometry args={[0.06, 16]} />
-        <meshStandardMaterial color="#2DD4BF" emissive="#0D9488" emissiveIntensity={1.5} toneMapped={false} />
+        <meshStandardMaterial color="#FFC93C" emissive="#FF7A1A" emissiveIntensity={1.5} toneMapped={false} />
       </mesh>
 
-      {/* Arms */}
-      <group position={[-0.55, 0.1, 0]}>
+      {/* Left Arm */}
+      <group ref={leftArmRef} position={[-0.55, 0.1, 0]}>
         <mesh position={[0, 0.1, 0]}>
           <sphereGeometry args={[0.1, 16, 16]} />
-          <meshStandardMaterial color="#0D9488" metalness={0.6} roughness={0.3} />
+          <meshStandardMaterial color="#FF7A1A" metalness={0.6} roughness={0.3} />
         </mesh>
         <mesh position={[0, -0.1, 0]}>
           <capsuleGeometry args={[0.06, 0.2, 8, 16]} />
-          <meshStandardMaterial color="#14B8A6" metalness={0.5} roughness={0.4} />
+          <meshStandardMaterial color="#FF9A4D" metalness={0.5} roughness={0.4} />
         </mesh>
         <mesh position={[0, -0.3, 0]}>
           <sphereGeometry args={[0.08, 16, 16]} />
-          <meshStandardMaterial color="#2DD4BF" metalness={0.4} roughness={0.5} />
+          <meshStandardMaterial color="#FFC93C" metalness={0.4} roughness={0.5} />
         </mesh>
       </group>
+
+      {/* Right Arm */}
       <group ref={rightArmRef} position={[0.55, 0.1, 0]}>
         <mesh position={[0, 0.1, 0]}>
           <sphereGeometry args={[0.1, 16, 16]} />
-          <meshStandardMaterial color="#0D9488" metalness={0.6} roughness={0.3} />
+          <meshStandardMaterial color="#FF7A1A" metalness={0.6} roughness={0.3} />
         </mesh>
         <mesh position={[0, -0.1, 0]}>
           <capsuleGeometry args={[0.06, 0.2, 8, 16]} />
-          <meshStandardMaterial color="#14B8A6" metalness={0.5} roughness={0.4} />
+          <meshStandardMaterial color="#FF9A4D" metalness={0.5} roughness={0.4} />
         </mesh>
         <mesh position={[0, -0.3, 0]}>
           <sphereGeometry args={[0.08, 16, 16]} />
-          <meshStandardMaterial color="#2DD4BF" metalness={0.4} roughness={0.5} />
+          <meshStandardMaterial color="#FFC93C" metalness={0.4} roughness={0.5} />
         </mesh>
       </group>
 
-      {/* Legs */}
-      <group position={[-0.2, -0.55, 0]}>
+      {/* Left Leg */}
+      <group ref={leftLegRef} position={[-0.2, -0.55, 0]}>
         <mesh position={[0, -0.1, 0]}>
           <capsuleGeometry args={[0.07, 0.2, 8, 16]} />
-          <meshStandardMaterial color="#0F766E" metalness={0.5} roughness={0.4} />
+          <meshStandardMaterial color="#E56A0F" metalness={0.5} roughness={0.4} />
         </mesh>
         <mesh position={[0, -0.3, 0.05]}>
           <boxGeometry args={[0.14, 0.06, 0.2]} />
-          <meshStandardMaterial color="#134E4A" metalness={0.6} roughness={0.3} />
+          <meshStandardMaterial color="#1C1C1E" metalness={0.6} roughness={0.3} />
         </mesh>
       </group>
-      <group position={[0.2, -0.55, 0]}>
+
+      {/* Right Leg */}
+      <group ref={rightLegRef} position={[0.2, -0.55, 0]}>
         <mesh position={[0, -0.1, 0]}>
           <capsuleGeometry args={[0.07, 0.2, 8, 16]} />
-          <meshStandardMaterial color="#0F766E" metalness={0.5} roughness={0.4} />
+          <meshStandardMaterial color="#E56A0F" metalness={0.5} roughness={0.4} />
         </mesh>
         <mesh position={[0, -0.3, 0.05]}>
           <boxGeometry args={[0.14, 0.06, 0.2]} />
-          <meshStandardMaterial color="#134E4A" metalness={0.6} roughness={0.3} />
+          <meshStandardMaterial color="#1C1C1E" metalness={0.6} roughness={0.3} />
         </mesh>
       </group>
 
       {/* Glow ring */}
       <mesh position={[0, 0, 0]} rotation={[Math.PI / 2, 0, 0]}>
         <torusGeometry args={[0.5, 0.01, 8, 32]} />
-        <meshStandardMaterial color="#2DD4BF" emissive="#0D9488" emissiveIntensity={2} transparent opacity={0.6} toneMapped={false} />
+        <meshStandardMaterial color="#FFC93C" emissive="#FF7A1A" emissiveIntensity={2} transparent opacity={0.6} toneMapped={false} />
       </mesh>
     </group>
   );
 }
 
-// Floating particles
+/* ═══ Floating Particles ═══ */
 function FloatingParticles({ count = 30 }: { count?: number }) {
   const meshRef = useRef<THREE.InstancedMesh>(null);
   const dummy = useRef(new THREE.Object3D()).current;
-  const particles = useMemo(() =>
-    Array.from({ length: count }, (_, i) => ({
-      x: Math.sin(i * 1.7) * 7.5,
-      y: Math.cos(i * 2.3) * 7.5,
-      z: Math.sin(i * 0.9) * 7.5,
-      scale: (i % 5) * 0.008 + 0.01,
-      speed: (i % 3) * 0.1 + 0.1,
-    })), [count]);
+  const particles = useMemo(
+    () =>
+      Array.from({ length: count }, (_, i) => ({
+        x: Math.sin(i * 1.7) * 7.5,
+        y: Math.cos(i * 2.3) * 7.5,
+        z: Math.sin(i * 0.9) * 7.5,
+        scale: (i % 5) * 0.008 + 0.01,
+        speed: (i % 3) * 0.1 + 0.1,
+      })),
+    [count]
+  );
 
   useFrame(({ clock }) => {
     if (!meshRef.current) return;
@@ -257,28 +286,40 @@ function FloatingParticles({ count = 30 }: { count?: number }) {
   return (
     <instancedMesh ref={meshRef} args={[undefined, undefined, count]}>
       <sphereGeometry args={[1, 8, 8]} />
-      <meshStandardMaterial color="#2DD4BF" emissive="#0D9488" emissiveIntensity={1} transparent opacity={0.5} toneMapped={false} />
+      <meshStandardMaterial color="#FFC93C" emissive="#FF7A1A" emissiveIntensity={1} transparent opacity={0.5} toneMapped={false} />
     </instancedMesh>
   );
 }
 
-// Hero 3D Scene
-function HeroScene() {
+/* ═══ Camera that follows scroll ═══ */
+function ScrollCamera({ scrollProgress }: { scrollProgress: number }) {
+  const { camera } = useThree();
+  useFrame(() => {
+    camera.position.x = THREE.MathUtils.lerp(camera.position.x, 0, 0.05);
+    camera.position.y = THREE.MathUtils.lerp(camera.position.y, 0.5 - scrollProgress * 0.5, 0.05);
+    camera.lookAt(0, 0, 0);
+  });
+  return null;
+}
+
+/* ═══ Hero 3D Scene with walking robot ═══ */
+function HeroScene({ scrollProgress }: { scrollProgress: number }) {
   return (
-    <Canvas camera={{ position: [0, 0, 5], fov: 50 }} gl={{ antialias: true, alpha: true }} style={{ background: "transparent" }}>
+    <Canvas camera={{ position: [0, 0.5, 5], fov: 50 }} gl={{ antialias: true, alpha: true }} style={{ background: "transparent" }}>
       <ambientLight intensity={0.4} />
       <directionalLight position={[5, 5, 5]} intensity={1} />
-      <pointLight position={[-5, 5, 5]} intensity={0.5} color="#2DD4BF" />
-      <pointLight position={[5, -5, 5]} intensity={0.3} color="#D97706" />
-      <RobotModel position={[1.5, 0, 0]} scale={1.2} />
-      <FloatingParticles count={20} />
+      <pointLight position={[-5, 5, 5]} intensity={0.5} color="#FFC93C" />
+      <pointLight position={[5, -5, 5]} intensity={0.3} color="#FF7A1A" />
+      <ScrollCamera scrollProgress={scrollProgress} />
+      <RobotModel scrollProgress={scrollProgress} />
+      <FloatingParticles count={25} />
       <Stars radius={30} depth={30} count={500} factor={3} saturation={0} fade speed={0.5} />
       <Environment preset="city" />
     </Canvas>
   );
 }
 
-// Animated section wrapper
+/* ═══ Animated section wrapper ═══ */
 function AnimatedSection({ children, className = "", delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
   const ref = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -310,16 +351,28 @@ function AnimatedSection({ children, className = "", delay = 0 }: { children: Re
   );
 }
 
+/* ═══ Main Page ═══ */
 export default function Home() {
   const categories = [...new Set(courses.map((c) => c.category))];
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = Math.min(window.scrollY / maxScroll, 1);
+      setScrollProgress(progress);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <>
       {/* ── Hero: 3D Animated ──────────────────────────── */}
-      <section className="relative min-h-screen bg-gradient-to-br from-charcoal via-[#0a3d3a] to-charcoal overflow-hidden">
+      <section className="relative min-h-screen bg-gradient-to-br from-charcoal via-[#2a1a0a] to-charcoal overflow-hidden">
         {/* 3D Background */}
         <div className="absolute inset-0 z-0">
-          <HeroScene />
+          <HeroScene scrollProgress={scrollProgress} />
         </div>
 
         {/* Gradient overlay */}
@@ -347,7 +400,7 @@ export default function Home() {
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link
                   href="/courses"
-                  className="bg-primary text-white px-8 py-4 rounded-full font-semibold text-base hover:bg-primary-light transition-all shadow-lg shadow-primary/30 font-[family-name:var(--font-display)] flex items-center justify-center gap-2 group"
+                  className="bg-primary text-white px-8 py-4 rounded-full font-semibold text-base hover:bg-primary-light transition-all shadow-lg shadow-primary/30 font-[family-name:var(--font-display)] flex items-center justify-center gap-2 group animate-btn-pulse"
                 >
                   Browse Courses
                   <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
@@ -356,7 +409,7 @@ export default function Home() {
                   href={siteConfig.contact.whatsappLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="border-2 border-white/20 text-white px-8 py-4 rounded-full font-semibold text-base hover:border-primary hover:bg-primary/10 transition-all flex items-center justify-center gap-2 font-[family-name:var(--font-display)]"
+                  className="border-2 border-primary text-primary px-8 py-4 rounded-full font-semibold text-base hover:bg-primary hover:text-white transition-all flex items-center justify-center gap-2 font-[family-name:var(--font-display)] animate-btn-glow"
                 >
                   <MessageCircle className="h-5 w-5" />
                   Chat on WhatsApp
@@ -385,8 +438,8 @@ export default function Home() {
             {/* Right — Proof Card */}
             <div className="animate-card-slide-in hidden lg:block">
               <div className="relative mx-auto max-w-md">
-                <div className="absolute -inset-4 rounded-3xl border-2 border-primary/10 -rotate-2 animate-glow" />
-                <div className="relative bg-white/10 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/20 overflow-hidden">
+                <div className="absolute -inset-4 rounded-3xl border-2 border-primary/20 -rotate-2 animate-glow" />
+                <div className="relative bg-white/10 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/20 overflow-hidden animate-card-float">
                   <div className="h-1 bg-gradient-to-r from-primary to-accent" />
                   <div className="p-8">
                     <div className="flex items-center justify-between mb-6">
@@ -438,7 +491,7 @@ export default function Home() {
 
         {/* Scroll indicator */}
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-[2] animate-bounce">
-          <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center pt-2">
+          <div className="w-6 h-10 border-2 border-primary/50 rounded-full flex justify-center pt-2">
             <div className="w-1 h-3 bg-primary rounded-full animate-pulse" />
           </div>
         </div>
@@ -480,9 +533,9 @@ export default function Home() {
                 <Link
                   key={category}
                   href={`/courses?category=${encodeURIComponent(category)}`}
-                  className="flex items-center gap-2 bg-white px-4 py-2 rounded-full text-sm font-medium text-charcoal hover:border-primary border border-warm-gray/50 transition-all whitespace-nowrap group hover:shadow-md"
+                  className="flex items-center gap-2 bg-white px-4 py-2 rounded-full text-sm font-medium text-charcoal hover:bg-primary hover:text-white border border-warm-gray/50 transition-all duration-300 whitespace-nowrap group hover:shadow-lg hover:shadow-primary/20"
                 >
-                  <span className="text-gray-400 group-hover:text-primary transition-colors">
+                  <span className="text-gray-400 group-hover:text-white transition-colors">
                     {categoryIcons[category] || <BookOpen className="h-4 w-4" />}
                   </span>
                   {category}
@@ -524,7 +577,7 @@ export default function Home() {
             <div className="mt-10 text-center md:hidden">
               <Link
                 href="/courses"
-                className="inline-flex items-center gap-1 text-primary font-semibold text-sm font-[family-name:var(--font-display)]"
+                className="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-full font-semibold text-sm font-[family-name:var(--font-display)] animate-btn-pulse"
               >
                 View all courses <ChevronRight className="h-4 w-4" />
               </Link>
@@ -536,7 +589,6 @@ export default function Home() {
       {/* ── How It Works ────────────────────────────── */}
       <AnimatedSection>
         <section className="py-20 bg-charcoal relative overflow-hidden">
-          {/* 3D Background elements */}
           <div className="absolute inset-0 opacity-10">
             <div className="absolute top-10 left-10 w-32 h-32 border border-primary/30 rounded-full animate-spin-slow" />
             <div className="absolute bottom-10 right-10 w-48 h-48 border border-secondary/20 rounded-full animate-spin-slow" style={{ animationDirection: "reverse" }} />
@@ -575,8 +627,8 @@ export default function Home() {
                   },
                 ].map((item) => (
                   <div key={item.num} className="text-center relative group">
-                    <div className="w-18 h-18 rounded-full border-2 border-primary/40 flex items-center justify-center mx-auto mb-5 relative z-10 bg-charcoal group-hover:border-primary group-hover:shadow-lg group-hover:shadow-primary/20 transition-all">
-                      <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary/20 transition-colors">
+                    <div className="w-18 h-18 rounded-full border-2 border-primary/40 flex items-center justify-center mx-auto mb-5 relative z-10 bg-charcoal group-hover:border-primary group-hover:shadow-lg group-hover:shadow-primary/30 transition-all duration-300 group-hover:scale-110">
+                      <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300">
                         {item.icon}
                       </div>
                     </div>
@@ -613,10 +665,10 @@ export default function Home() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              <div className="md:row-span-2 bg-charcoal rounded-2xl p-8 md:p-10 flex flex-col justify-between text-white relative overflow-hidden group hover:shadow-2xl transition-shadow">
+              <div className="md:row-span-2 bg-charcoal rounded-2xl p-8 md:p-10 flex flex-col justify-between text-white relative overflow-hidden group hover:shadow-2xl transition-all duration-300 hover:scale-[1.02]">
                 <div className="absolute top-0 right-0 w-40 h-40 bg-primary/10 rounded-full -translate-y-1/2 translate-x-1/2 group-hover:scale-150 transition-transform duration-500" />
                 <div>
-                  <div className="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center text-primary mb-6">
+                  <div className="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-white transition-all duration-300">
                     <Users className="h-6 w-6" />
                   </div>
                   <h3 className="text-2xl font-bold mb-3 font-[family-name:var(--font-display)]">
@@ -634,9 +686,9 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="bg-white rounded-2xl p-8 relative overflow-hidden hover:shadow-lg transition-shadow group">
+              <div className="bg-white rounded-2xl p-8 relative overflow-hidden hover:shadow-xl transition-all duration-300 group hover:scale-[1.02] hover:border hover:border-primary/20">
                 <div className="absolute bottom-0 right-0 w-24 h-24 bg-primary/5 rounded-full translate-y-1/2 translate-x-1/2 group-hover:scale-150 transition-transform duration-500" />
-                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-4">
+                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-4 group-hover:bg-primary group-hover:text-white transition-all duration-300">
                   <BookOpen className="h-5 w-5" />
                 </div>
                 <h3 className="text-lg font-bold text-charcoal mb-2 font-[family-name:var(--font-display)]">
@@ -647,8 +699,8 @@ export default function Home() {
                 </p>
               </div>
 
-              <div className="bg-white rounded-2xl p-8 relative overflow-hidden hover:shadow-lg transition-shadow group">
-                <div className="w-10 h-10 rounded-lg bg-secondary/20 flex items-center justify-center text-primary mb-4">
+              <div className="bg-white rounded-2xl p-8 relative overflow-hidden hover:shadow-xl transition-all duration-300 group hover:scale-[1.02] hover:border hover:border-primary/20">
+                <div className="w-10 h-10 rounded-lg bg-secondary/20 flex items-center justify-center text-primary mb-4 group-hover:bg-primary group-hover:text-white transition-all duration-300">
                   <Target className="h-5 w-5" />
                 </div>
                 <h3 className="text-lg font-bold text-charcoal mb-2 font-[family-name:var(--font-display)]">
@@ -659,9 +711,9 @@ export default function Home() {
                 </p>
               </div>
 
-              <div className="bg-white rounded-2xl p-8 relative overflow-hidden hover:shadow-lg transition-shadow group">
+              <div className="bg-white rounded-2xl p-8 relative overflow-hidden hover:shadow-xl transition-all duration-300 group hover:scale-[1.02] hover:border hover:border-primary/20">
                 <div className="absolute -bottom-6 -right-6 w-20 h-20 bg-primary/5 rounded-full group-hover:scale-150 transition-transform duration-500" />
-                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-4">
+                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-4 group-hover:bg-primary group-hover:text-white transition-all duration-300">
                   <Headphones className="h-5 w-5" />
                 </div>
                 <h3 className="text-lg font-bold text-charcoal mb-2 font-[family-name:var(--font-display)]">
@@ -681,8 +733,8 @@ export default function Home() {
         <section className="py-20 bg-cream">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-              <div className="relative">
-                <div className="aspect-square bg-charcoal rounded-2xl flex items-center justify-center relative overflow-hidden group">
+              <div className="relative group">
+                <div className="aspect-square bg-charcoal rounded-2xl flex items-center justify-center relative overflow-hidden hover:shadow-2xl transition-all duration-300">
                   <div className="absolute top-0 left-0 w-full h-full">
                     <div className="absolute top-8 left-8 w-32 h-32 border-2 border-primary/20 rounded-full group-hover:scale-110 transition-transform duration-500" />
                     <div className="absolute bottom-12 right-12 w-48 h-48 border-2 border-secondary/15 rounded-full group-hover:scale-110 transition-transform duration-500" />
@@ -710,7 +762,7 @@ export default function Home() {
                 </p>
                 <Link
                   href="/about"
-                  className="inline-flex items-center gap-2 text-primary font-semibold hover:gap-3 transition-all font-[family-name:var(--font-display)] text-sm group"
+                  className="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-full font-semibold hover:bg-primary-light transition-all font-[family-name:var(--font-display)] text-sm group animate-btn-glow"
                 >
                   Read Full Story <ChevronRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                 </Link>
@@ -734,7 +786,7 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {testimonials.map((testimonial, index) => (
                 <AnimatedSection key={index} delay={index * 100}>
-                  <div className="relative bg-white rounded-2xl p-8 hover:shadow-lg transition-shadow group">
+                  <div className="relative bg-white rounded-2xl p-8 hover:shadow-xl transition-all duration-300 group hover:scale-[1.02] hover:border hover:border-primary/20 cursor-default card-shine">
                     <span className="absolute -top-3 -left-1 text-6xl text-primary/15 font-[family-name:var(--font-display)] select-none leading-none">
                       &ldquo;
                     </span>
@@ -778,7 +830,7 @@ export default function Home() {
               href={siteConfig.contact.whatsappLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-primary text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-primary-light transition-all shadow-lg shadow-primary/30 font-[family-name:var(--font-display)] group"
+              className="inline-flex items-center gap-2 bg-primary text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-primary-light transition-all shadow-lg shadow-primary/30 font-[family-name:var(--font-display)] group animate-btn-pulse"
             >
               <MessageCircle className="h-5 w-5" />
               Chat on WhatsApp

@@ -6,7 +6,6 @@ export const siteConfig = {
   description:
     "Learn AI, Digital Marketing, Meta Ads & Shopify from a specialist who's done it for real e-commerce clients. Practical courses at Rs. 5,000 one-time.",
 
-  // Contact & Owner Info
   founder: {
     name: "Abeer Nasir",
     title:
@@ -35,30 +34,27 @@ export const siteConfig = {
     businessHours: "Mon–Sat, 10am–8pm PKT",
   },
 
-  // Brand Colors (for reference, actual values in globals.css)
   colors: {
-    primary: "#0D9488",
-    primaryDark: "#0F766E",
-    primaryLight: "#14B8A6",
-    secondary: "#2DD4BF",
-    accent: "#D97706",
-    accentLight: "#F59E0B",
-    charcoal: "#134E4A",
-    cream: "#F0FDFA",
+    primary: "#FF7A1A",
+    primaryDark: "#E56A0F",
+    primaryLight: "#FF9A4D",
+    secondary: "#FFC93C",
+    accent: "#FF5722",
+    accentLight: "#FF7043",
+    charcoal: "#1C1C1E",
+    cream: "#FAF8F5",
     warmGray: "#E8E4DF",
     success: "#22C55E",
-    background: "#F0FDFA",
-    foreground: "#134E4A",
+    background: "#FAF8F5",
+    foreground: "#1C1C1E",
   },
 
-  // Stats for trust bar
   stats: [
     { value: "3+", label: "Years Hands-On Experience" },
     { value: "10+", label: "Practical Courses" },
     { value: "100%", label: "Real Client Results" },
   ],
 
-  // Course categories
   categories: [
     "Generative AI",
     "AI Automation",
@@ -70,15 +66,12 @@ export const siteConfig = {
     "Freelancing",
   ],
 
-  // Social links
   social: {
     whatsapp: "https://wa.me/923703159642",
     email: "mailto:abeerinfo5566@gmail.com",
     linkedin: "https://www.linkedin.com/in/abeer-nasir-3052b628a/",
-    // tiktok: "", // TODO: Add TikTok link later
   },
 
-  // Navigation
   navLinks: [
     { label: "Home", href: "/" },
     { label: "Courses", href: "/courses" },
@@ -88,7 +81,6 @@ export const siteConfig = {
     { label: "Contact", href: "/contact" },
   ],
 
-  // Footer links
   footerLinks: {
     company: [
       { label: "About Us", href: "/about" },

@@ -1,19 +1,27 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-primary: #FF7A1A;
-  --color-primary-dark: #E56A0F;
-  --color-secondary: #FFC93C;
-  --color-secondary-dark: #E6B535;
-  --color-charcoal: #1C1C1E;
-  --color-cream: #FAF8F5;
-  --color-light-gray: #FAF8F5;
+  --color-primary: #0D9488;
+  --color-primary-dark: #0F766E;
+  --color-primary-light: #14B8A6;
+  --color-secondary: #2DD4BF;
+  --color-accent: #D97706;
+  --color-accent-light: #F59E0B;
+  --color-charcoal: #134E4A;
+  --color-cream: #F0FDFA;
+  --color-light-gray: #E8F1F4;
   --color-warm-gray: #E8E4DF;
   --color-surface: #FFFFFF;
   --color-success: #22C55E;
-  --color-background: #FAF8F5;
-  --color-foreground: #1C1C1E;
-  --font-display: var(--font-space-grotesk);
+  --color-destructive: #DC2626;
+  --color-background: #F0FDFA;
+  --color-foreground: #134E4A;
+  --color-muted: #E8F1F4;
+  --color-border: #5EEAD4;
+  --color-ring: #0D9488;
+  --color-glow: #0D948833;
+  --color-glow-strong: #0D948866;
+  --font-display: var(--font-nunito);
   --font-body: var(--font-dm-sans);
 }
 
@@ -21,45 +29,117 @@ body {
   background: var(--color-background);
   color: var(--color-foreground);
   font-family: var(--font-body), "Helvetica Neue", Arial, sans-serif;
+  overflow-x: hidden;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-display), "Helvetica Neue", Arial, sans-serif;
 }
 
-/* WhatsApp button pulse animation */
-@keyframes pulse-bounce {
-  0%, 100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.1);
-  }
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
 }
 
+/* WhatsApp button pulse animation */
+@keyframes pulse-bounce {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
 .animate-pulse-bounce {
   animation: pulse-bounce 2s infinite;
 }
 
-/* Hero result card slide-in */
-@keyframes card-slide-in {
-  0% {
-    opacity: 0;
-    transform: translateX(40px) rotate(2deg);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0) rotate(0deg);
-  }
+/* Glow effect */
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 20px var(--color-glow); }
+  50% { box-shadow: 0 0 40px var(--color-glow-strong); }
+}
+.animate-glow {
+  animation: glow 3s ease-in-out infinite;
 }
 
+/* Float animation */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Spin slow */
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
+}
+
+/* Fade in up */
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in-up {
+  animation: fade-in-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Scale in */
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
+}
+.animate-scale-in {
+  animation: scale-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Slide in from left */
+@keyframes slide-in-left {
+  from { opacity: 0; transform: translateX(-60px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+.animate-slide-in-left {
+  animation: slide-in-left 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Slide in from right */
+@keyframes slide-in-right {
+  from { opacity: 0; transform: translateX(60px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+.animate-slide-in-right {
+  animation: slide-in-right 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Hero card slide-in */
+@keyframes card-slide-in {
+  0% { opacity: 0; transform: translateX(40px) rotate(2deg); }
+  100% { opacity: 1; transform: translateX(0) rotate(0deg); }
+}
 .animate-card-slide-in {
   animation: card-slide-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both;
 }
 
-/* Smooth scroll */
-html {
-  scroll-behavior: smooth;
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Glass effect */
+.glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* 3D perspective */
+.perspective-1000 {
+  perspective: 1000px;
 }
 
 /* Staggered course grid */
@@ -76,5 +156,29 @@ html {
   }
   .course-grid-stagger > *:nth-child(5) {
     margin-top: 3rem;
+  }
+}
+
+/* Canvas container */
+.canvas-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Section spacing */
+.section-padding {
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+}
+
+@media (min-width: 768px) {
+  .section-padding {
+    padding-top: 8rem;
+    padding-bottom: 8rem;
   }
 }

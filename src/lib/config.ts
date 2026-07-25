@@ -37,13 +37,18 @@ export const siteConfig = {
 
   // Brand Colors (for reference, actual values in globals.css)
   colors: {
-    primary: "#FF7A1A",
-    primaryDark: "#E56A0F",
-    secondary: "#FFC93C",
-    charcoal: "#1C1C1E",
-    cream: "#FAF8F5",
+    primary: "#0D9488",
+    primaryDark: "#0F766E",
+    primaryLight: "#14B8A6",
+    secondary: "#2DD4BF",
+    accent: "#D97706",
+    accentLight: "#F59E0B",
+    charcoal: "#134E4A",
+    cream: "#F0FDFA",
     warmGray: "#E8E4DF",
     success: "#22C55E",
+    background: "#F0FDFA",
+    foreground: "#134E4A",
   },
 
   // Stats for trust bar

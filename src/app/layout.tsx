@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import RobotOverlay from "@/components/RobotOverlay";
 
 const nunito = Nunito({
   variable: "--font-nunito",
@@ -62,6 +63,7 @@ export default function RootLayout({
         <main className="flex-1">{children}</main>
         <Footer />
         <WhatsAppButton />
+        <RobotOverlay />
       </body>
     </html>
   );

@@ -47,3 +47,7 @@ claude.md
 resume.md
 SkillSpark-OpenCode-Master-Prompt.md
 *.pdf
+
+# nested repo + local tooling (kept out of the published site repo)
+/open-agent/
+/.opencode/
